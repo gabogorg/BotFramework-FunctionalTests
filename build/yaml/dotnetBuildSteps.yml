@@ -6,13 +6,13 @@ steps:
   displayName: 'Use .Net Core sdk 2.1.x'
   inputs:
     version: 2.1.x
-  condition: and(ne(variables['SkipNetCore'], 'true'), eq($(NetCoreSdkVersion),'2.1'))
+  condition: and(ne(variables['SkipNetCore'], 'true'), eq(variables['NetCoreSdkVersion'],'2.1'))
 
 - task: UseDotNet@2
   displayName: 'Use .Net Core sdk 3.1.x'
   inputs:
     version: 3.1.x
-  condition: and(ne(variables['SkipNetCore'], 'true'), eq($(NetCoreSdkVersion),'3.1'))
+  condition: and(ne(variables['SkipNetCore'], 'true'), eq(variables['NetCoreSdkVersion'],'3.1'))
   
 #- powershell: |
 
