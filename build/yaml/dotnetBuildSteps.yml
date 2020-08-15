@@ -1,22 +1,15 @@
 steps:
-- task: UseDotNet@2
+- task: DotNetCoreInstaller@1
   displayName: 'Use .Net Core sdk 2.1.x'
   inputs:
     version: 2.1.x
   condition: ne(variables['SkipNetCore'], 'true')
 
-- task: UseDotNet@2
+- task: DotNetCoreInstaller@1
   displayName: 'Use .Net Core sdk 3.1.x'
   inputs:
     version: 3.1.x
   condition: ne(variables['SkipNetCore'], 'true')
-  
-- script: |
-   echo Setting DOTNET_ROOT
-   set DOTNET_ROOT=c:\hostedtoolcached\windows\dotnet
-   echo Pre-pending to PATH
-   set PATH=%DOTNET_ROOT%;%PATH%   
-  displayName: 'Command Line Script'
     
 - powershell: 'gci env:* | sort-object name | Format-Table -AutoSize -Wrap'
   displayName: 'Display env vars'
