@@ -1,28 +1,33 @@
 steps:
 - powershell: 'gci env:* | sort-object name | Format-Table -AutoSize -Wrap'
   displayName: 'Display env vars'
-  
+
 - task: UseDotNet@2
   displayName: 'Use .Net Core sdk 2.1.x'
   inputs:
     version: 2.1.x
-  condition: ne(variables['SkipNetCore'], 'true')
+  condition: and(ne(variables['SkipNetCore'], 'true'), eq($(NetCoreSdkVersion),'2.1'))
 
 - task: UseDotNet@2
   displayName: 'Use .Net Core sdk 3.1.x'
   inputs:
     version: 3.1.x
-  condition: ne(variables['SkipNetCore'], 'true')
+  condition: and(ne(variables['SkipNetCore'], 'true'), eq($(NetCoreSdkVersion),'3.1'))
   
-- powershell: |
-   $dotnetroot = "C:\hostedtoolcache\windows\dotnet"
-   echo "##vso[task.setvariable variable=DOTNET_ROOT]$dotnetroot"
-   echo "##vso[task.prependpath]$dotnetroot"
-   Write-Host "Set DOTNET_ROOT=$dotnetroot and prepend PATH"
-  
-- powershell: 'gci env:* | sort-object name | Format-Table -AutoSize -Wrap'
-  displayName: 'Display env vars'
+#- powershell: |
 
+#  $dotnetroot = "C:\hostedtoolcache\windows\dotnet"
+#   echo "##vso[task.setvariable variable=DOTNET_ROOT]$dotnetroot"
+#   echo "##vso[task.prependpath]$dotnetroot"
+#   Write-Host "Set DOTNET_ROOT=$dotnetroot and prepend PATH"   
+#   displayName: 'Display env vars'
+   
+- task: DotNetCoreCLI@2
+  displayName: 'List SDKs'
+  inputs:
+    command: custom
+    custom: '--list-sdks'
+  
 - task: NuGetToolInstaller@0
   displayName: 'Use NuGet 4.9.1'
   inputs:

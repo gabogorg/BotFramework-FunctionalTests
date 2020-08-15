@@ -67,6 +67,7 @@ stages:
       variables:
         Registry: $[variables.RegistryUrlHost]
         BotBuilderPackageVersion: $[variables.BotBuilderPackageVersionHost]
+        NetCoreSdkVersion: $(NetCoreSdkVersionHost)
         Parameters.solution: 'SkillsFunctionalTests/dotnet/$(NetCoreSdkVersionHost)/host/SimpleHostBot.sln'
         Parameters.project: 'SkillsFunctionalTests/dotnet/$(NetCoreSdkVersionHost)/host/SimpleHostBot.csproj'
       steps:
@@ -84,6 +85,7 @@ stages:
       variables:
         Registry: $[variables.RegistryUrlSkill]
         BotBuilderPackageVersion: $[variables.BotBuilderPackageVersionSkill]
+        NetCoreSdkVersion: $(NetCoreSdkVersionSkill)
         Parameters.solution: 'SkillsFunctionalTests/dotnet/$(NetCoreSdkVersionSkill)/skill/EchoSkillBot.sln'
         Parameters.project: 'SkillsFunctionalTests/dotnet/$(NetCoreSdkVersionSkill)/skill/EchoSkillBot.csproj'
       steps:
